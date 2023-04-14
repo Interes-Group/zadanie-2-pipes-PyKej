@@ -5,8 +5,8 @@ import sk.stuba.fei.uim.oop.board.Board;
 
 import javax.swing.*;
 
-public class GameLogic {
-    public static final int INITIAL_BOARD_SIZE = 6;
+public class GameLogic extends UniversalAdapter {
+    public static final int INITIAL_BOARD_SIZE = 8;
     private JFrame mainGame;
 
     @Getter
@@ -22,17 +22,22 @@ public class GameLogic {
 
         this.mainGame = mainGame;
         this.currentBoardSize = INITIAL_BOARD_SIZE;
+        this.label = new JLabel();
+        this.boardSizeLabel = new JLabel();
 
+        updateNameLabel();
+        updateBoardSizeLabel();
 
         initializeNewBoard(currentBoardSize);
 
 
 //        this.mainGame.add(this.currentBoard);
-
+        //todo tuna daj iné komponenty
         this.label = new JLabel();
         this.boardSizeLabel = new JLabel();
-//        this.updateNameLabel();
-//        this.updateBoardSizeLabel();
+        this.updateNameLabel();
+        this.updateBoardSizeLabel();
+
 
     }
 
@@ -41,5 +46,19 @@ public class GameLogic {
 
 //        this.currentBoard.addMouseMotionListener(this);
 //        this.currentBoard.addMouseListener(this);
+
+    }
+
+
+    private void updateNameLabel() {
+        this.label.setText("PLAYER: " + " is PLAYING");
+        this.mainGame.revalidate();
+        this.mainGame.repaint();
+    }
+
+    private void updateBoardSizeLabel() {
+        this.boardSizeLabel.setText("CURRENT BOARD SIZE: " + this.currentBoardSize);
+        this.mainGame.revalidate();
+        this.mainGame.repaint();
     }
 }

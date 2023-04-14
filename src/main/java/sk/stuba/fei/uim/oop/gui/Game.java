@@ -15,14 +15,15 @@ public class Game {
         frame.setResizable(false);
         frame.setFocusable(true);
         frame.requestFocusInWindow();
+        frame.setLayout(new BorderLayout(0,10)); // defaultne je zapnuty border layout + margin vertikalny 10px
 
 
-        GameLogic logic = new GameLogic(frame);
 //        Board board = new Board(logic.getCurrentBoardSize());
-        SideMenu sideMenu = new SideMenu();
+        GameLogic gameLogic = new GameLogic(frame);
+        SideMenu sideMenu = new SideMenu(gameLogic);
 
 
-//        frame.addKeyListener(logic);
+        frame.addKeyListener(gameLogic);
 //
 //        JPanel sideMenu = new JPanel();
 //        sideMenu.setBackground(Color.LIGHT_GRAY);
@@ -46,7 +47,7 @@ public class Game {
 //        sideMenu.add(slider);
 //        frame.add(sideMenu, BorderLayout.PAGE_START);
 
-        frame.add(logic.getCurrentBoard(), BorderLayout.CENTER);
+        frame.add(gameLogic.getCurrentBoard(), BorderLayout.CENTER);
         frame.add(sideMenu, BorderLayout.SOUTH);
 
         frame.setVisible(true);
