@@ -1,5 +1,7 @@
 package sk.stuba.fei.uim.oop.board;
 
+import sk.stuba.fei.uim.oop.board.tile.Direction;
+import sk.stuba.fei.uim.oop.board.tile.Pipe;
 import sk.stuba.fei.uim.oop.board.tile.Tile;
 
 import javax.swing.*;
@@ -10,7 +12,7 @@ public class Board extends JPanel {
     public Board(int dimension) {
        this.initializeBoard(dimension);
 
-        //this.setBorder(BorderFactory.createEmptyBorder(180, 50, 50, 50));
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setBackground(Color.YELLOW);
 
 
@@ -22,7 +24,7 @@ public class Board extends JPanel {
         this.setLayout(new GridLayout(dimension, dimension));
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                this.tileArray[i][j] = new Tile();
+                this.tileArray[i][j] = new Tile(Pipe.STRAIGHT);
                 this.add(this.tileArray[i][j]);
             }
         }

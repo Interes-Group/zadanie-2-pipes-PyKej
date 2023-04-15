@@ -10,7 +10,7 @@ public class Game {
     public Game() {
         JFrame frame = new JFrame("Water Pipes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800,890);
+        frame.setSize(800,910);
         frame.getContentPane().setBackground(new Color(0xe49536));
         frame.setResizable(false);
         frame.setFocusable(true);
