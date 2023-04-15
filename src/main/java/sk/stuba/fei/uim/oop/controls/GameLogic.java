@@ -1,10 +1,14 @@
 package sk.stuba.fei.uim.oop.controls;
 
 import lombok.Getter;
+import lombok.Setter;
 import sk.stuba.fei.uim.oop.board.Board;
+import sk.stuba.fei.uim.oop.board.tile.Tile;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 public class GameLogic extends UniversalAdapter {
@@ -19,6 +23,9 @@ public class GameLogic extends UniversalAdapter {
     private JLabel boardSizeLabel;
     @Getter
     private int currentBoardSize;
+    @Getter
+    private int currentLevel;
+
 
     private HashMap<String, Integer> optionValues;
 
@@ -29,12 +36,14 @@ public class GameLogic extends UniversalAdapter {
         this.label = new JLabel();
         this.boardSizeLabel = new JLabel();
 
+        currentLevel = 1;
+
         optionValues = new HashMap<>();
         optionValues.put("Easy (8x8)", 8);
         optionValues.put("Medium (9x9)", 9);
         optionValues.put("Hard (10x10)", 10);
 
-        updateNameLabel();
+        updateLevelLabel();
         updateBoardSizeLabel();
 
         initializeNewBoard(currentBoardSize);
@@ -44,7 +53,7 @@ public class GameLogic extends UniversalAdapter {
         //todo tuna daj iné komponenty
         this.label = new JLabel();
         this.boardSizeLabel = new JLabel();
-        this.updateNameLabel();
+        this.updateLevelLabel();
         this.updateBoardSizeLabel();
 
 
@@ -62,14 +71,14 @@ public class GameLogic extends UniversalAdapter {
     }
 
 
-    private void updateNameLabel() {
-        this.label.setText("PLAYER: " + " is PLAYING");
+    private void updateLevelLabel() {
+        this.label.setText("Current level is: " + currentLevel);
         this.mainGame.revalidate();
         this.mainGame.repaint();
     }
 
     private void updateBoardSizeLabel() {
-        this.boardSizeLabel.setText("CURRENT BOARD SIZE: " + this.currentBoardSize);
+        this.boardSizeLabel.setText("Current board size: " + this.currentBoardSize);
         this.mainGame.revalidate();
         this.mainGame.repaint();
     }
@@ -79,8 +88,22 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.remove(this.currentBoard);
         this.initializeNewBoard(this.currentBoardSize);
         this.mainGame.add(this.currentBoard);
-        this.updateNameLabel();
+        this.updateLevelLabel();
     }
+
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
+        if (!(current instanceof Tile)) {
+            return;
+        }
+            ((Tile) current).setHighlight(true);
+        System.out.println("FUNGUSSSSSS");
+
+        this.currentBoard.repaint();
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

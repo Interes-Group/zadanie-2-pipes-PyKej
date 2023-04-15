@@ -1,5 +1,7 @@
 package sk.stuba.fei.uim.oop.board.tile;
 
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -15,12 +17,16 @@ public class Tile extends JPanel {
     private int connectorHeight;
     private int middlePosition;
 
+    @Setter
+    private boolean highlight;
+
     public Tile(Pipe pipe, Direction direction) {
         this.pipe = pipe;
         this.direction = direction;
 
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setBackground(Color.BLUE);
+
 
     }
 
@@ -32,6 +38,13 @@ public class Tile extends JPanel {
         super.paintComponent(g);
 
             ((Graphics2D) g).setStroke(new BasicStroke(3));
+
+        if (this.highlight) {
+            g.setColor(Color.GREEN);
+            this.highlight = false;
+        } else {
+            g.setColor(Color.GRAY);
+        }
 
 
 
