@@ -5,12 +5,14 @@ import sk.stuba.fei.uim.oop.controls.GameLogic;
 import javax.swing.*;
 import java.awt.*;
 
+import static sk.stuba.fei.uim.oop.gui.Game.BACKGROUND_COLOUR;
+
 public class SideMenu extends JPanel {
 
     public SideMenu(GameLogic gameLogic) {
-//        this.setBorder(BorderFactory.createEmptyBorder(80, 50, 50, 50));
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setPreferredSize(new Dimension(1, 80));
-        this.setBackground(Color.GREEN);
+        this.setBackground(new Color(BACKGROUND_COLOUR));
 
 
 
@@ -23,23 +25,86 @@ public class SideMenu extends JPanel {
 //        JPanel sideMenu = new JPanel();
 
         JButton buttonRestart = new JButton("RESTART");
+        buttonRestart.setActionCommand("buttonRestart");
         buttonRestart.addActionListener(gameLogic);
         buttonRestart.setFocusable(false);
 
-        JSlider slider = new JSlider(JSlider.HORIZONTAL, 6, 12, 6);
-        slider.setMinorTickSpacing(2);
-        slider.setMajorTickSpacing(2);
-        slider.setSnapToTicks(true);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-        slider.addChangeListener(gameLogic);
+
+
+        JButton buttonCheck = new JButton("CHECK");
+        buttonCheck.setActionCommand("buttonCheck");
+        buttonCheck.addActionListener(gameLogic);
+        buttonCheck.setFocusable(false);
+
+
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setPreferredSize(new Dimension(200, 1));
+        buttonsPanel.setLayout(new GridLayout(2, 1));
+        buttonsPanel.add(buttonCheck);
+        buttonsPanel.add(buttonRestart);
+
+        buttonCheck.setBackground(Color.BLUE);
+        buttonCheck.setForeground(Color.WHITE);
+        buttonRestart.setBackground(new Color(0x930000));
+        buttonRestart.setForeground(Color.WHITE);
+        // Set the foreground color to white
+//
+
+
+
+
+        // todo toto potom asi vymaz
+//        JSlider slider = new JSlider(JSlider.HORIZONTAL, 6, 12, 6);
+//        slider.setMinorTickSpacing(2);
+//        slider.setMajorTickSpacing(2);
+//        slider.setSnapToTicks(true);
+//        slider.setPaintTicks(true);
+//        slider.setPaintLabels(true);
+//        slider.addChangeListener(gameLogic);
 
         //todo niektoré budú iné komponenty
-        this.setLayout(new GridLayout(2, 2));
-        this.add(gameLogic.getLabel());
-        this.add(buttonRestart);
-        this.add(gameLogic.getBoardSizeLabel());
-        this.add(slider);
+//        this.setLayout(new GridLayout(2, 2));
+//        this.add(gameLogic.getLabel());
+//        this.add(buttonRestart);
+//        this.add(gameLogic.getBoardSizeLabel());
+//        this.add(slider);
+
+
+
+
+
+
+
+
+        String[] items = {"Easy (8x8)", "Medium (9x9)", "Hard (10x10)"};
+        JComboBox<String> comboBox = new JComboBox<>(items);
+        comboBox.setActionCommand("comboBox");
+        comboBox.addActionListener(gameLogic);
+        comboBox.setFocusable(false);
+//        comboBox.setPreferredSize(new Dimension(100, 30));
+
+
+        JPanel comboBoxPanel = new JPanel();
+        comboBoxPanel.setBackground(new Color(BACKGROUND_COLOUR));
+        comboBoxPanel.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 40));
+        comboBoxPanel.setPreferredSize(new Dimension(100, 1));
+        comboBoxPanel.setLayout(new GridLayout(2, 1));
+        comboBoxPanel.add(gameLogic.getBoardSizeLabel());
+        comboBoxPanel.add(comboBox);
+
+
+        gameLogic.getLabel().setPreferredSize(new Dimension(200, 1));
+
+
+
+        this.setLayout(new BorderLayout());
+
+        this.add(gameLogic.getLabel(), BorderLayout.WEST);
+
+//        this.add(gameLogic.getBoardSizeLabel(), BorderLayout.CENTER);
+        this.add(comboBoxPanel, BorderLayout.CENTER);
+        this.add(buttonsPanel, BorderLayout.EAST);
+//        this.add(slider);
 
     }
 }

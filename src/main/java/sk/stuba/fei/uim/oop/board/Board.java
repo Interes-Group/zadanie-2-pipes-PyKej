@@ -7,13 +7,15 @@ import sk.stuba.fei.uim.oop.board.tile.Tile;
 import javax.swing.*;
 import java.awt.*;
 
+import static sk.stuba.fei.uim.oop.gui.Game.BACKGROUND_COLOUR;
+
 public class Board extends JPanel {
     private Tile[][] tileArray;
     public Board(int dimension) {
        this.initializeBoard(dimension);
 
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        this.setBackground(Color.YELLOW);
+        this.setBackground(new Color(BACKGROUND_COLOUR));
 
 
 //        this.checkPlayable(State.BLACK);
@@ -24,7 +26,7 @@ public class Board extends JPanel {
         this.setLayout(new GridLayout(dimension, dimension));
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                this.tileArray[i][j] = new Tile(Pipe.STRAIGHT);
+                this.tileArray[i][j] = new Tile(Pipe.STRAIGHT, Direction.VERTICAL);
                 this.add(this.tileArray[i][j]);
             }
         }

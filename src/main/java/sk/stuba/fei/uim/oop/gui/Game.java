@@ -7,11 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Game {
+    public static final int BACKGROUND_COLOUR = 0xff9504;
     public Game() {
+
+
         JFrame frame = new JFrame("Water Pipes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,910);
-        frame.getContentPane().setBackground(new Color(0xe49536));
+        frame.getContentPane().setBackground(new Color(BACKGROUND_COLOUR));
         frame.setResizable(false);
         frame.setFocusable(true);
         frame.requestFocusInWindow();
