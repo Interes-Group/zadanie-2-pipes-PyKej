@@ -8,13 +8,16 @@ import java.util.Arrays;
 
 public class Tile extends JPanel {
 
+    @Setter
     private Direction direction;
+    @Setter
     private Pipe pipe;
 
     private int pipeWidth;
     private int pipeHeight;
     private int connectorWidth;
     private int connectorHeight;
+
     private int middlePosition;
 
     @Setter
@@ -24,7 +27,7 @@ public class Tile extends JPanel {
         this.pipe = pipe;
         this.direction = direction;
 
-        this.setBorder(BorderFactory.createLineBorder(Color.black));
+//        this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setBackground(Color.BLUE);
 
 
@@ -37,13 +40,17 @@ public class Tile extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-            ((Graphics2D) g).setStroke(new BasicStroke(3));
+
 
         if (this.highlight) {
-            g.setColor(Color.GREEN);
+            this.setBorder(BorderFactory.createLineBorder(Color.green));
+//            g.setColor(Color.GREEN);
+//            ((Graphics2D) g).setStroke(new BasicStroke(3));
             this.highlight = false;
         } else {
-            g.setColor(Color.GRAY);
+//            g.setColor(Color.GRAY);
+            this.setBorder(BorderFactory.createLineBorder(Color.black));
+//            ((Graphics2D) g).setStroke(new BasicStroke(3));
         }
 
 
@@ -60,7 +67,7 @@ public class Tile extends JPanel {
 //            g.fillRect(middlePosition((int) (this.getWidth() * 0.35)), (int) (0 + this.getHeight() * 0.92),
 //            (int) (this.getWidth() * 0.35), (int) (this.getHeight() * 0.08));
 
-        System.out.println("VElkosti stvorca: "+this.getHeight() + " " + this.getWidth());
+//        System.out.println("VElkosti stvorca: "+this.getHeight() + " " + this.getWidth());
 
 
             // todo neviem či premenné môžu ostať tuna
@@ -99,49 +106,49 @@ public class Tile extends JPanel {
 
         switch (direction) {
             case U_R:
-                System.out.println("Up right");
+//                System.out.println("Up right");
                 printPipeU(g);
                 printPipeR(g);
                 break;
             case D_R:
-                System.out.println("Down right");
+//                System.out.println("Down right");
                 printPipeD(g);
                 printPipeR(g);
                 break;
             case D_L:
-                System.out.println("Down left");
+//                System.out.println("Down left");
                 printPipeD(g);
                 printPipeL(g);
                 break;
             case U_L:
-                System.out.println("Up left");
+//                System.out.println("Up left");
                 printPipeL(g);
                 printPipeU(g);
                 break;
             case HORIZONTAL:
-                System.out.println("Horizontal");
+//                System.out.println("Horizontal");
                 printPipeR(g);
                 printPipeL(g);
                 break;
             case VERTICAL:
-                System.out.println("Vertical");
+//                System.out.println("Vertical");
                 printPipeU(g);
                 printPipeD(g);
                 break;
             case L:
-                System.out.println("Left");
+//                System.out.println("Left");
                 printPipeL(g);
                 break;
             case R:
-                System.out.println("Right");
+//                System.out.println("Right");
                 printPipeR(g);
                 break;
             case U:
-                System.out.println("Up");
+//                System.out.println("Up");
                 printPipeU(g);
                 break;
             case D:
-                System.out.println("Down");
+//                System.out.println("Down");
                 printPipeD(g);
                 break;
         }
@@ -149,8 +156,8 @@ public class Tile extends JPanel {
 
 
 
-            g.setColor(Color.BLACK);
-            ((Graphics2D) g).setStroke(new BasicStroke(1));
+//            g.setColor(Color.BLACK);
+//            ((Graphics2D) g).setStroke(new BasicStroke(1));
 
             boolean[] arr = {true, false, true, false};
             rotate(arr);

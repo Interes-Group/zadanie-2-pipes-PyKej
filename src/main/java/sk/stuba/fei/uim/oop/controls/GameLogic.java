@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.board.Board;
 import sk.stuba.fei.uim.oop.board.tile.Tile;
+import java.util.Random;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,9 +28,13 @@ public class GameLogic extends UniversalAdapter {
     private int currentLevel;
 
 
+
+
     private HashMap<String, Integer> optionValues;
 
     public GameLogic(JFrame mainGame) {
+
+
 
         this.mainGame = mainGame;
         this.currentBoardSize = INITIAL_BOARD_SIZE;
@@ -65,8 +70,9 @@ public class GameLogic extends UniversalAdapter {
     private void initializeNewBoard(int dimension) {
         this.currentBoard = new Board(dimension);
 
-//        this.currentBoard.addMouseMotionListener(this);
-//        this.currentBoard.addMouseListener(this);
+        // todo mouse motion listenery neviem čo je zle
+        this.currentBoard.addMouseMotionListener(this);
+        this.currentBoard.addMouseListener(this);
 
     }
 
@@ -100,6 +106,7 @@ public class GameLogic extends UniversalAdapter {
         }
             ((Tile) current).setHighlight(true);
         System.out.println("FUNGUSSSSSS");
+        ((Tile) current).setHighlight(true);
 
         this.currentBoard.repaint();
     }
@@ -138,5 +145,22 @@ public class GameLogic extends UniversalAdapter {
 
 
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
+        //todo tuna dorob rotate
+//        System.out.println("bolo stlacne: " + e.getX() + " "+ e.getY());
+//        if (!(current instanceof Tile)) {
+//            return;
+//        }
+//        if (((Tile) current).getState().equals(State.EMPTY) && ((Tile) current).isPlayable()) {
+//            this.currentBoard.findTile((Tile) current, State.BLACK);
+//            this.swapPlayer();
+//        }
+    }
+
+
+
 
 }
