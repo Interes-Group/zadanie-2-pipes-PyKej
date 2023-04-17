@@ -115,7 +115,7 @@ public class GameLogic extends UniversalAdapter {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-
+        System.out.println("IDE8888??");
         String actionCommand = e.getActionCommand();
         if ("buttonRestart".equals(actionCommand)) {
             this.gameRestart();
@@ -149,18 +149,17 @@ public class GameLogic extends UniversalAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
-        //todo tuna dorob rotate
-//        System.out.println("bolo stlacne: " + e.getX() + " "+ e.getY());
-//        if (!(current instanceof Tile)) {
-//            return;
-//        }
-//        if (((Tile) current).getState().equals(State.EMPTY) && ((Tile) current).isPlayable()) {
-//            this.currentBoard.findTile((Tile) current, State.BLACK);
-//            this.swapPlayer();
-//        }
+        System.out.println("IDE??");
+        ((Tile) current).rotate();
+
+        ((Tile) current).getDirection1();
+
+        System.out.println("toto som dostal: " +  ((Tile) current).getDirection1());
+        this.currentBoard.repaint();
     }
 
-
-
-
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        super.mouseEntered(e);
+    }
 }

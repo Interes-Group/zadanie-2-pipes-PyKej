@@ -26,7 +26,7 @@ public class Board extends JPanel {
 
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setBackground(new Color(BACKGROUND_COLOUR));
-
+        System.out.println("Board sa opakuje");
 
 //        this.checkPlayable(State.BLACK);
     }
@@ -36,10 +36,11 @@ public class Board extends JPanel {
         this.setLayout(new GridLayout(dimension, dimension));
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                this.tileArray[j][i] = new Tile(Pipe.STRAIGHT, Direction.VERTICAL); //todo táto část kódu bude asi potrebovať zmenu
+                this.tileArray[j][i] = new Tile(Pipe.CORNER, Direction.D, Direction.R); //todo táto část kódu bude asi potrebovať zmenu
                 this.add(this.tileArray[j][i]);
             }
         }
+
 
         chooseStartEnd(dimension);
 

@@ -47,34 +47,6 @@ public class SideMenu extends JPanel {
         buttonCheck.setForeground(Color.WHITE);
         buttonRestart.setBackground(new Color(0x930000));
         buttonRestart.setForeground(Color.WHITE);
-        // Set the foreground color to white
-//
-
-
-
-
-        // todo toto potom asi vymaz
-//        JSlider slider = new JSlider(JSlider.HORIZONTAL, 6, 12, 6);
-//        slider.setMinorTickSpacing(2);
-//        slider.setMajorTickSpacing(2);
-//        slider.setSnapToTicks(true);
-//        slider.setPaintTicks(true);
-//        slider.setPaintLabels(true);
-//        slider.addChangeListener(gameLogic);
-
-        //todo niektoré budú iné komponenty
-//        this.setLayout(new GridLayout(2, 2));
-//        this.add(gameLogic.getLabel());
-//        this.add(buttonRestart);
-//        this.add(gameLogic.getBoardSizeLabel());
-//        this.add(slider);
-
-
-
-
-
-
-
 
         String[] items = {"Easy (8x8)", "Medium (9x9)", "Hard (10x10)"};
         JComboBox<String> comboBox = new JComboBox<>(items);
