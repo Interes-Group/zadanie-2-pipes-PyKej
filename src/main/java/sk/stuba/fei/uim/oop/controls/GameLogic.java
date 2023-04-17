@@ -158,6 +158,7 @@ public class GameLogic extends UniversalAdapter {
         this.currentBoard.repaint();
     }
 
+
     @Override
     public void mouseEntered(MouseEvent e) {
         super.mouseEntered(e);

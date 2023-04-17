@@ -51,6 +51,10 @@ public class Board extends JPanel {
 //        this.tileArray[dimension / 2 - 1][dimension / 2 - 1].setState(State.BLACK);
     }
 
+    private void generateRoot(){
+
+    }
+
 
 
     private int getRand(int max) {
@@ -64,9 +68,11 @@ public class Board extends JPanel {
         int endY = getRand(dimension);
 
         this.tileArray[0][startY].setPipe(START);
-        this.tileArray[0][startY].setDirection(Direction.R);
+        this.tileArray[0][startY].setDirection1(Direction.R);
+        this.tileArray[0][startY].setDirection2(Direction.NONE);
 
         this.tileArray[dimension-1][endY].setPipe(END);
-        this.tileArray[dimension-1][endY].setDirection(Direction.U);
+        this.tileArray[dimension-1][endY].setDirection1(Direction.U);
+        this.tileArray[dimension-1][endY].setDirection2(Direction.NONE);
     }
 }
