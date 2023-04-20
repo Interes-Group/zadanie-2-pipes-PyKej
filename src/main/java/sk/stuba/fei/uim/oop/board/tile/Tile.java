@@ -168,9 +168,17 @@ public class Tile extends JPanel {
 
         direction1 = directions[dir1Index];
         direction2 = directions[dir2Index];
-        if (pipe == Pipe.END || pipe == Pipe.START){
+        if (pipe == Pipe.END){
             direction2 = Direction.NONE;
         }
+        else if (pipe == Pipe.START) {
+            direction1 = Direction.NONE;
+        }
+        else if (pipe == Pipe.NONE) {
+            direction1 = Direction.NONE;
+            direction1 = Direction.NONE;
+        }
+        
 
 
     }

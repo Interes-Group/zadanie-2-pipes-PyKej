@@ -40,7 +40,7 @@ public class Board extends JPanel {
         this.setLayout(new GridLayout(dimension, dimension));
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                this.tileArray[i][j] = new Tile(Pipe.CORNER, Direction.D, Direction.R, i,  j); //todo táto část kódu bude asi potrebovať zmenu
+                this.tileArray[i][j] = new Tile(STRAIGHT_CORNER, Direction.NONE, Direction.NONE, i,  j); //todo táto část kódu bude asi potrebovať zmenu
                 this.add(this.tileArray[i][j]);
             }
         }
@@ -50,13 +50,15 @@ public class Board extends JPanel {
 
 
         ArrayList<Tile> route = generaterRoute();
-        System.out.println("Tuna je cesaaaaaa" + route);
 
-        for (int i = 0; i< route.size(); i++){
-            route.get(i).setPipe(STRAIGHT);
-            route.get(i).setDirection1(Direction.U);
-            route.get(i).setDirection2(Direction.D);
-        }
+
+//        for (int i = 0; i< route.size(); i++){
+//            route.get(i).setPipe(STRAIGHT);
+//            route.get(i).setDirection1(Direction.U);
+//            route.get(i).setDirection2(Direction.D);
+//        }
+
+        setTipeOfPipes(route);
     }
 
 
@@ -64,29 +66,19 @@ public class Board extends JPanel {
 
 
     public ArrayList<Tile> generaterRoute() {
-//        Set<Tile> visited = new HashSet<>();
         ArrayList<Tile> route = new ArrayList<Tile>();
         Tile current = start;
 
         start.setVisited(true);
         route.add(start);
 
-//        current != finish
-        int i=1;
+
         System.out.println(finish.getPipe() + " "+ finish.getPosX() + " "+ finish.getPosY());
         while (current.getPipe() != END) {
-            System.out.println("ICKO:" + i);
+
             System.out.println(current.getPipe() + " "+ current.getPosX() + " "+ current.getPosY());
             ArrayList<Tile> neighbours = new ArrayList<Tile>();
             checkNeighbours(current, neighbours);
-
-//            for (i = 0; i<neighbours.size(); i++){
-//                if (neighbours.get(i)==finish){
-//                    return route;
-//                }
-//            }
-
-
 
             if (neighbours.size() == 0) {
                 route.remove(current);
@@ -104,18 +96,49 @@ public class Board extends JPanel {
                 route.add(next);
                 current = next;
             }
-            i++;
+
         }
 
         return route;
     }
 
-    private  void checkNeighbours(Tile currTile, ArrayList<Tile> neighbours){
-//        Tile neighbourU = tileArray[currTile.getPosX()][currTile.getPosY()+1];
-//        Tile neighbourR = tileArray[currTile.getPosX()+1][currTile.getPosY()];
-//        Tile neighbourD = tileArray[currTile.getPosX()][currTile.getPosY()-1];
-//        Tile neighbourL = tileArray[currTile.getPosX()-1][currTile.getPosY()];
 
+    private void setTipeOfPipes( ArrayList<Tile> route){
+        Tile current;
+        Tile next;
+
+        for (int i = 0; i<route.size()-1; i++){
+            current = route.get(i);
+            next =  route.get(i+1);
+
+
+            //hore
+            if (current.getPosX() >next.getPosX()){
+                current.setDirection2(Direction.U);
+                next.setDirection1(Direction.D);
+            }
+
+            //dole
+            if (current.getPosX() < next.getPosX()){
+                current.setDirection2(Direction.D);
+                next.setDirection1(Direction.U);
+            }
+
+            //v pravo
+            if (current.getPosY() >next.getPosY()){
+                current.setDirection2(Direction.L);
+                next.setDirection1(Direction.R);
+            }
+
+            //v lavo
+            if (current.getPosY() <next.getPosY()){
+                current.setDirection2(Direction.R);
+                next.setDirection1(Direction.L);
+            }
+        }
+    }
+
+    private  void checkNeighbours(Tile currTile, ArrayList<Tile> neighbours){
         if (currTile.getPosY()+1 < dimension && !(tileArray[currTile.getPosX()][currTile.getPosY()+1].isVisited())){
             neighbours.add(tileArray[currTile.getPosX()][currTile.getPosY()+1]);
         }
