@@ -12,7 +12,7 @@ public class Tile extends JPanel {
 
     @Setter
     private Direction direction;
-    @Setter
+    @Setter @Getter
     private Pipe pipe;
 
     @Setter @Getter
@@ -25,21 +25,31 @@ public class Tile extends JPanel {
     private int connectorWidth;
     private int connectorHeight;
 
+    @Getter @Setter
+    private boolean visited;
+
+    @Getter
+    private int posX;
+    @Getter
+    private int posY;
     private int middlePosition;
 
     @Setter
     private boolean highlight;
 
-    public Tile(Pipe pipe, Direction direction1, Direction direction2 ) {
+    public Tile(Pipe pipe, Direction direction1, Direction direction2, int posX, int posY) {
         this.direction1 = direction1;
         this.direction2 = direction2;
-
         this.pipe = pipe;
 
+        this.visited = false;
+
+        this.posX = posX;
+        this.posY = posY;
 
 //        this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setBackground(Color.BLUE);
-        System.out.println("fockjeeee");
+//        System.out.println("fockjeeee");
 
     }
 
@@ -142,6 +152,8 @@ public class Tile extends JPanel {
 
 
     public void rotate(){
+
+        System.out.println(this.getPipe() + " "+ this.getPosX() + " "+ this.getPosY());
         Direction[] directions = Direction.values();
 
         int dir1Index = 1+ direction1.ordinal();

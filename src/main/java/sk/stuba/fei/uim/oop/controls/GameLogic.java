@@ -105,7 +105,7 @@ public class GameLogic extends UniversalAdapter {
             return;
         }
             ((Tile) current).setHighlight(true);
-        System.out.println("FUNGUSSSSSS");
+//        System.out.println("FUNGUSSSSSS");
         ((Tile) current).setHighlight(true);
 
         this.currentBoard.repaint();
@@ -147,7 +147,8 @@ public class GameLogic extends UniversalAdapter {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
         Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
         System.out.println("IDE??");
         ((Tile) current).rotate();
@@ -157,7 +158,6 @@ public class GameLogic extends UniversalAdapter {
         System.out.println("toto som dostal: " +  ((Tile) current).getDirection1());
         this.currentBoard.repaint();
     }
-
 
     @Override
     public void mouseEntered(MouseEvent e) {
