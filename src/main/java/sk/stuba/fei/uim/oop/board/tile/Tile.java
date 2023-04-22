@@ -10,8 +10,6 @@ import java.util.Random;
 
 public class Tile extends JPanel {
 
-    @Setter
-    private Direction direction;
     @Setter @Getter
     private Pipe pipe;
 
@@ -28,6 +26,9 @@ public class Tile extends JPanel {
     @Getter @Setter
     private boolean visited;
 
+    @Getter @Setter
+    private boolean water;
+
     @Getter
     private int posX;
     @Getter
@@ -37,10 +38,10 @@ public class Tile extends JPanel {
     @Setter
     private boolean highlight;
 
-    public Tile(Pipe pipe, Direction direction1, Direction direction2, int posX, int posY) {
-        this.direction1 = direction1;
-        this.direction2 = direction2;
-        this.pipe = pipe;
+    public Tile(int posX, int posY) {
+        this.direction1 = Direction.NONE;
+        this.direction2 = Direction.NONE;
+        this.pipe = Pipe.NONE;
 
         this.visited = false;
 
@@ -62,32 +63,18 @@ public class Tile extends JPanel {
 
 
 
-        if (this.highlight) {
-            this.setBorder(BorderFactory.createLineBorder(Color.green));
-//            g.setColor(Color.GREEN);
-//            ((Graphics2D) g).setStroke(new BasicStroke(3));
-            this.highlight = false;
-        } else {
-//            g.setColor(Color.GRAY);
-            this.setBorder(BorderFactory.createLineBorder(Color.black));
-//            ((Graphics2D) g).setStroke(new BasicStroke(3));
-        }
+//        if (this.highlight) {
+//            this.setBorder(BorderFactory.createLineBorder(Color.green));
+////            g.setColor(Color.GREEN);
+////            ((Graphics2D) g).setStroke(new BasicStroke(3));
+//            this.highlight = false;
+//        } else {
+////            g.setColor(Color.GRAY);
+//            this.setBorder(BorderFactory.createLineBorder(Color.black));
+////            ((Graphics2D) g).setStroke(new BasicStroke(3));
+//        }
 
 
-
-
-//            g.setColor(Color.DARK_GRAY);
-//            g.fillRect(middlePosition((int) (this.getWidth() * 0.25)), 0,
-//                    (int) (this.getWidth() * 0.25), (int) (this.getHeight()));
-//
-//            g.setColor(Color.PINK);
-//            g.fillRect(middlePosition((int) (this.getWidth() * 0.35)), 0,
-//            (int) (this.getWidth() * 0.35), (int) (this.getHeight() * 0.08));
-//
-//            g.fillRect(middlePosition((int) (this.getWidth() * 0.35)), (int) (0 + this.getHeight() * 0.92),
-//            (int) (this.getWidth() * 0.35), (int) (this.getHeight() * 0.08));
-
-//        System.out.println("VElkosti stvorca: "+this.getHeight() + " " + this.getWidth());
 
 
             // todo neviem či premenné môžu ostať tuna
@@ -137,9 +124,7 @@ public class Tile extends JPanel {
                     connectorWidth, connectorHeight);
 
         }
-
-//
-
+        System.out.println("neviem preco");
 
     }
 
@@ -173,87 +158,16 @@ public class Tile extends JPanel {
         }
         else if (pipe == Pipe.START) {
             direction1 = Direction.NONE;
+//            direction2 = Direction.NONE;
         }
         else if (pipe == Pipe.NONE) {
             direction1 = Direction.NONE;
-            direction1 = Direction.NONE;
+            direction2 = Direction.NONE;
         }
-        
+
 
 
     }
-
-
-
-//    {// predloha
-//        public class RandomizedDFS {
-//            private static final int[][] DIRECTIONS = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}}; // right, down, left, up
-//            private static final Random rand = new Random();
-//
-//            public static void main(String[] args) {
-//                int[][] maze = generateMaze(10, 10); // generate a 10x10 maze
-//                printMaze(maze);
-//            }
-//
-//            public static int[][] generateMaze(int numRows, int numCols) {
-//                int[][] maze = new int[numRows][numCols];
-//                Stack<Integer> stack = new Stack<>();
-//                int totalCells = numRows * numCols;
-//                int visitedCells = 1;
-//                int row = 0, col = 0;
-//
-//                while (visitedCells < totalCells) {
-//                    List<Integer> neighbors = new ArrayList<>();
-//                    for (int[] dir : DIRECTIONS) {
-//                        int newRow = row + dir[0];
-//                        int newCol = col + dir[1];
-//                        if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols && maze[newRow][newCol] == 0) {
-//                            neighbors.add(newRow * numCols + newCol);
-//                        }
-//                    }
-//
-//                    if (!neighbors.isEmpty()) {
-//                        int neighbor = neighbors.get(rand.nextInt(neighbors.size()));
-//                        int neighborRow = neighbor / numCols;
-//                        int neighborCol = neighbor % numCols;
-//                        maze[row][col] |= 1 << rand.nextInt(4); // mark the wall as visited
-//                        maze[neighborRow][neighborCol] |= 1 << ((DIRECTIONS.indexOf(Arrays.asList(neighborRow - row, neighborCol - col)) + 2) % 4); // mark the opposite wall as visited
-//                        stack.push(row * numCols + col);
-//                        row = neighborRow;
-//                        col = neighborCol;
-//                        visitedCells++;
-//                    } else if (!stack.isEmpty()) {
-//                        int cell = stack.pop();
-//                        row = cell / numCols;
-//                        col = cell % numCols;
-//                    } else {
-//                        // backtrack to a random cell
-//                        int cell = rand.nextInt(totalCells);
-//                        row = cell / numCols;
-//                        col = cell % numCols;
-//                    }
-//                }
-//
-//                return maze;
-//            }
-//
-//            public static void printMaze(int[][] maze) {
-//                for (int[] row : maze) {
-//                    for (int cell : row) {
-//                        System.out.print((cell & 1) == 0 ? "##" : "# "); // print top wall
-//                        System.out.print((cell & 2) == 0 ? "##" : "  "); // print right wall
-//                    }
-//                    System.out.println("#"); // print rightmost wall of each row
-//                    for (int cell : row) {
-//                        System.out.print((cell & 4) == 0 ? "# " : "  "); // print bottom wall
-//                        System.out.print((cell & 8) == 0 ? "##" : "# "); // print left wall
-//                    }
-//                    System.out.println("#"); // print rightmost wall of each row
-//                }
-//            }
-//        }
-//
-//    }
 
 
 

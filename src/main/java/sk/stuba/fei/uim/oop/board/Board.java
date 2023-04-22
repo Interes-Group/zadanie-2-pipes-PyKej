@@ -40,7 +40,7 @@ public class Board extends JPanel {
         this.setLayout(new GridLayout(dimension, dimension));
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                this.tileArray[i][j] = new Tile(STRAIGHT_CORNER, Direction.NONE, Direction.NONE, i,  j); //todo táto část kódu bude asi potrebovať zmenu
+                this.tileArray[i][j] = new Tile(i, j); //todo táto část kódu bude asi potrebovať zmenu
                 this.add(this.tileArray[i][j]);
             }
         }
@@ -59,6 +59,7 @@ public class Board extends JPanel {
 //        }
 
         setTipeOfPipes(route);
+        randomRotate(route);
     }
 
 
@@ -103,6 +104,17 @@ public class Board extends JPanel {
     }
 
 
+    private void randomRotate( ArrayList<Tile> route){
+        for(int i = 0; i<route.size(); i++){
+
+            for (int j = 0; j<=getRand(6); j++ ){
+                route.get(i).rotate();
+            }
+        }
+
+        this.repaint();
+    }
+
     private void setTipeOfPipes( ArrayList<Tile> route){
         Tile current;
         Tile next;
@@ -110,6 +122,10 @@ public class Board extends JPanel {
         for (int i = 0; i<route.size()-1; i++){
             current = route.get(i);
             next =  route.get(i+1);
+
+            if (i !=0){
+                current.setPipe(STRAIGHT_CORNER);
+            }
 
 
             //hore
@@ -163,8 +179,8 @@ public class Board extends JPanel {
     private void chooseStartFinish(){
         start = tileArray[getRand(dimension)][0];
         start.setPipe(START);
-        start.setDirection1(Direction.R);
-        start.setDirection2(Direction.NONE);
+        start.setDirection1(Direction.NONE);
+        start.setDirection2(Direction.R);
 
         finish = tileArray[getRand(dimension)][dimension-1];
         finish.setPipe(END);

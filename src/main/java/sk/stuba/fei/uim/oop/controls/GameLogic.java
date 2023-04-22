@@ -106,7 +106,7 @@ public class GameLogic extends UniversalAdapter {
         }
             ((Tile) current).setHighlight(true);
 //        System.out.println("FUNGUSSSSSS");
-        ((Tile) current).setHighlight(true);
+//        ((Tile) current).setHighlight(true);
 
         this.currentBoard.repaint();
     }
@@ -159,8 +159,4 @@ public class GameLogic extends UniversalAdapter {
         this.currentBoard.repaint();
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        super.mouseEntered(e);
-    }
 }
