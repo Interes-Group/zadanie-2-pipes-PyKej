@@ -124,7 +124,7 @@ public class Tile extends JPanel {
                     connectorWidth, connectorHeight);
 
         }
-        System.out.println("neviem preco");
+//        System.out.println("neviem preco"); //todo vymaz
 
     }
 

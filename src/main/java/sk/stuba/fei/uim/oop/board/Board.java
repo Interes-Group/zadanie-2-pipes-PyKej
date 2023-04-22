@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.board;
 
+import lombok.Getter;
 import sk.stuba.fei.uim.oop.board.tile.Direction;
 import sk.stuba.fei.uim.oop.board.tile.Pipe;
 import sk.stuba.fei.uim.oop.board.tile.Tile;
@@ -17,12 +18,18 @@ public class Board extends JPanel {
     private Tile[][] tileArray;
     private int dimension;
 
+    private ArrayList<Tile> route;
+    private ArrayList<Tile> neighbours;
+
+    @Getter
     private Tile start;
     private Tile finish;
 
 
     public Board(int dimension) {
         this.rand = new Random();
+        this.route = new ArrayList<Tile>();
+        this.neighbours = new ArrayList<Tile>();
 
         this.dimension = dimension;
 
@@ -49,7 +56,7 @@ public class Board extends JPanel {
         chooseStartFinish();
 
 
-        ArrayList<Tile> route = generaterRoute();
+        generaterRoute();
 
 
 //        for (int i = 0; i< route.size(); i++){
@@ -58,16 +65,18 @@ public class Board extends JPanel {
 //            route.get(i).setDirection2(Direction.D);
 //        }
 
-        setTipeOfPipes(route);
-        randomRotate(route);
+        setTipeOfPipes();
+        randomRotate();
+
+
     }
 
 
 
 
 
-    public ArrayList<Tile> generaterRoute() {
-        ArrayList<Tile> route = new ArrayList<Tile>();
+    public void generaterRoute() {
+
         Tile current = start;
 
         start.setVisited(true);
@@ -78,8 +87,8 @@ public class Board extends JPanel {
         while (current.getPipe() != END) {
 
             System.out.println(current.getPipe() + " "+ current.getPosX() + " "+ current.getPosY());
-            ArrayList<Tile> neighbours = new ArrayList<Tile>();
-            checkNeighbours(current, neighbours);
+            neighbours.clear();
+            checkNeighbours(current);
 
             if (neighbours.size() == 0) {
                 route.remove(current);
@@ -100,11 +109,10 @@ public class Board extends JPanel {
 
         }
 
-        return route;
     }
 
 
-    private void randomRotate( ArrayList<Tile> route){
+    private void randomRotate(){
         for(int i = 0; i<route.size(); i++){
 
             for (int j = 0; j<=getRand(6); j++ ){
@@ -115,7 +123,88 @@ public class Board extends JPanel {
         this.repaint();
     }
 
-    private void setTipeOfPipes( ArrayList<Tile> route){
+
+    public void checkPipes(Tile currPipe){
+//        for(int i = 0; i<route.size(); i++){
+//            Tile currPipe = route.get(i);
+            neighbours.clear();
+            checkNeighbourPipe(currPipe);
+
+            for (int j = 0; j< neighbours.size(); j++){
+                Tile currNeighbour = neighbours.get(j);
+
+
+
+                if ((currPipe.isWater()) && !(currNeighbour.isWater())){
+
+
+
+
+    //                        current smeruje UP
+                    if (    (currPipe.getPosX() > currNeighbour.getPosX()) &&
+                            (currPipe.getDirection1()==Direction.U || currPipe.getDirection2()==Direction.U) &&
+                            (currNeighbour.getDirection1() == Direction.D ||currNeighbour.getDirection2() == Direction.D) ){
+                        System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
+                        currNeighbour.setWater(true);
+                        checkPipes(currNeighbour);
+
+                    }
+
+
+
+                    //                        current smeruje DOWN
+                    if (    (currPipe.getPosX() < currNeighbour.getPosX()) &&
+                            (currPipe.getDirection1()==Direction.D || currPipe.getDirection2()==Direction.D) &&
+                            (currNeighbour.getDirection1() == Direction.U ||currNeighbour.getDirection2() == Direction.U) ){
+                        System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
+                        currNeighbour.setWater(true);
+                        checkPipes(currNeighbour);
+
+                    }
+
+
+                    //                        current smeruje LEFT
+                    if (    (currPipe.getPosY() > currNeighbour.getPosY()) &&
+                            (currPipe.getDirection1()==Direction.L || currPipe.getDirection2()==Direction.L) &&
+                            (currNeighbour.getDirection1() == Direction.R ||currNeighbour.getDirection2() == Direction.R) ){
+                        System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
+                        currNeighbour.setWater(true);
+                        checkPipes(currNeighbour);
+
+                    }
+
+
+                    //                        current smeruje RIGHT
+                    if (    (currPipe.getPosY() < currNeighbour.getPosY()) &&
+                            (currPipe.getDirection1()==Direction.R || currPipe.getDirection2()==Direction.R) &&
+                            (currNeighbour.getDirection1() == Direction.L ||currNeighbour.getDirection2() == Direction.L) ){
+                        System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
+                        currNeighbour.setWater(true);
+                        checkPipes(currNeighbour);
+
+                    }
+
+                }
+
+
+
+            }
+
+
+//        }
+
+//        this.repaint();
+    }
+
+
+
+    public void setWater(){
+        for (int i = 1; i<route.size()-1; i++){
+            route.get(i).setWater(false);
+        }
+    }
+
+    private void setTipeOfPipes(){
         Tile current;
         Tile next;
 
@@ -154,7 +243,7 @@ public class Board extends JPanel {
         }
     }
 
-    private  void checkNeighbours(Tile currTile, ArrayList<Tile> neighbours){
+    private  void checkNeighbours(Tile currTile){
         if (currTile.getPosY()+1 < dimension && !(tileArray[currTile.getPosX()][currTile.getPosY()+1].isVisited())){
             neighbours.add(tileArray[currTile.getPosX()][currTile.getPosY()+1]);
         }
@@ -165,6 +254,30 @@ public class Board extends JPanel {
             neighbours.add(tileArray[currTile.getPosX()][currTile.getPosY()-1]);
         }
         if (currTile.getPosX()-1 >= 0 && !(tileArray[currTile.getPosX()-1][currTile.getPosY()].isVisited())){
+            neighbours.add(tileArray[currTile.getPosX()-1][currTile.getPosY()]);
+        }
+    }
+
+    private  void checkNeighbourPipe(Tile currTile){
+        // todo prerob to je to "GRCCCC"
+        if (    currTile.getPosY()+1 < dimension &&
+                ((tileArray[currTile.getPosX()][currTile.getPosY()+1].getPipe()==END) ||
+                (tileArray[currTile.getPosX()][currTile.getPosY()+1].getPipe()==STRAIGHT_CORNER))){
+            neighbours.add(tileArray[currTile.getPosX()][currTile.getPosY()+1]);
+        }
+        if (    currTile.getPosX()+1 < dimension &&
+                ((tileArray[currTile.getPosX()+1][currTile.getPosY()].getPipe()==END) ||
+                (tileArray[currTile.getPosX()+1][currTile.getPosY()].getPipe()==STRAIGHT_CORNER))){
+            neighbours.add(tileArray[currTile.getPosX()+1][currTile.getPosY()]);
+        }
+        if (    currTile.getPosY()-1 >= 0 &&
+                ((tileArray[currTile.getPosX()][currTile.getPosY()-1].getPipe()==END) ||
+                (tileArray[currTile.getPosX()][currTile.getPosY()-1].getPipe()==STRAIGHT_CORNER))){
+            neighbours.add(tileArray[currTile.getPosX()][currTile.getPosY()-1]);
+        }
+        if (    currTile.getPosX()-1 >= 0 &&
+                ((tileArray[currTile.getPosX()-1][currTile.getPosY()].getPipe()==END) ||
+                (tileArray[currTile.getPosX()-1][currTile.getPosY()].getPipe()==STRAIGHT_CORNER))){
             neighbours.add(tileArray[currTile.getPosX()-1][currTile.getPosY()]);
         }
     }
@@ -181,6 +294,7 @@ public class Board extends JPanel {
         start.setPipe(START);
         start.setDirection1(Direction.NONE);
         start.setDirection2(Direction.R);
+        start.setWater(true);
 
         finish = tileArray[getRand(dimension)][dimension-1];
         finish.setPipe(END);

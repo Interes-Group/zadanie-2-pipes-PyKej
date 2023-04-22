@@ -54,7 +54,6 @@ public class GameLogic extends UniversalAdapter {
         initializeNewBoard(currentBoardSize);
 
 
-//        this.mainGame.add(this.currentBoard);
         //todo tuna daj iné komponenty
         this.label = new JLabel();
         this.boardSizeLabel = new JLabel();
@@ -126,6 +125,8 @@ public class GameLogic extends UniversalAdapter {
         }
         else if ("buttonCheck".equals(actionCommand)) {
             System.out.println("Nict!!!!!!!!!!");
+            this.currentBoard.setWater();
+            this.currentBoard.checkPipes(this.currentBoard.getStart());
         }
 
         else if ("comboBox".equals(actionCommand)) {
