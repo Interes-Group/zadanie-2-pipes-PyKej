@@ -38,6 +38,18 @@ public class Tile extends JPanel {
     @Setter
     private boolean highlight;
 
+    public static final int BACKGROUND_TILE = 0xF2AE4E;
+
+    public static final int START_BACKGROUND = 0x3EBFA1;
+    public static final int END_BACKGROUND = 0x8CC600;
+    public static final int MIDDLE_PIPE = 0xA0090B;
+    public static final int CONNECTOR_PIPE = 0xBF220B;
+
+    public static final int WATER_MIDDLE_PIPE = 0x4674B3;
+    public static final int WATER_CONNECTOR_PIPE = 0x6280FC;
+//    A0090B
+//            BF220B
+
     public Tile(int posX, int posY) {
         this.direction1 = Direction.NONE;
         this.direction2 = Direction.NONE;
@@ -49,7 +61,7 @@ public class Tile extends JPanel {
         this.posY = posY;
 
 //        this.setBorder(BorderFactory.createLineBorder(Color.black));
-        this.setBackground(Color.BLUE);
+        this.setBackground(new Color(BACKGROUND_TILE));
 //        System.out.println("fockjeeee");
 
     }
@@ -60,7 +72,24 @@ public class Tile extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        int pipeMiddle;
+        int pipeConnector;
 
+        if (isWater()){
+            pipeMiddle = WATER_MIDDLE_PIPE;
+            pipeConnector = WATER_CONNECTOR_PIPE;
+        }
+        else {
+            pipeMiddle = MIDDLE_PIPE;
+            pipeConnector = CONNECTOR_PIPE;
+        }
+
+        if (pipe == Pipe.START){
+            this.setBackground(new Color(START_BACKGROUND));
+        }
+        else if (pipe == Pipe.END){
+            this.setBackground(new Color(END_BACKGROUND));
+        }
 
 
 //        if (this.highlight) {
@@ -86,40 +115,40 @@ public class Tile extends JPanel {
 
 
         if(direction1 == Direction.L || direction2 == Direction.L){
-            g.setColor(Color.GRAY);
+            g.setColor(new Color(pipeMiddle));
             g.fillRect(0, middlePosition((int) (this.getHeight() * 0.25)),
                     pipeHeight,  pipeWidth );
 
-            g.setColor(Color.PINK);
+            g.setColor(new Color(pipeConnector));
             g.fillRect(0, middlePosition(connectorWidth),
                     connectorHeight, connectorWidth);
         }
 
         if(direction1 == Direction.U || direction2 == Direction.U){
-            g.setColor(Color.DARK_GRAY);
+            g.setColor(new Color(pipeMiddle));
             g.fillRect(middlePosition((int) (this.getWidth() * 0.25)), 0,
                     pipeWidth, pipeHeight);
 
-            g.setColor(Color.PINK);
+            g.setColor(new Color(pipeConnector));
             g.fillRect(middlePosition(connectorWidth), 0,
                     connectorWidth, connectorHeight);
         }
 
         if(direction1 == Direction.R || direction2 == Direction.R){
-            g.setColor(Color.YELLOW);
+            g.setColor(new Color(pipeMiddle));
             g.fillRect((this.getWidth()-pipeHeight), middlePosition((int) (this.getHeight() * 0.25)),
                     pipeHeight,  pipeWidth );
 
-            g.setColor(Color.PINK);
+            g.setColor(new Color(pipeConnector));
             g.fillRect((this.getWidth()-connectorHeight), middlePosition(connectorWidth),
                     connectorHeight, connectorWidth);
         }
         if(direction1 == Direction.D || direction2 == Direction.D){
-            g.setColor(Color.RED);
+            g.setColor(new Color(pipeMiddle));
             g.fillRect(middlePosition((int) (this.getWidth() * 0.25)), middlePosition(pipeWidth),
                     pipeWidth, pipeHeight);
 
-            g.setColor(Color.ORANGE);
+            g.setColor(new Color(pipeConnector));
             g.fillRect(middlePosition(connectorWidth), (this.getHeight()-connectorHeight),
                     connectorWidth, connectorHeight);
 

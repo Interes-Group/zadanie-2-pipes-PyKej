@@ -43,9 +43,10 @@ public class SideMenu extends JPanel {
         buttonsPanel.add(buttonCheck);
         buttonsPanel.add(buttonRestart);
 
-        buttonCheck.setBackground(Color.BLUE);
+        buttonCheck.setBackground(new Color(0x6280FC));
         buttonCheck.setForeground(Color.WHITE);
-        buttonRestart.setBackground(new Color(0x930000));
+
+        buttonRestart.setBackground(new Color(0xA0090B));
         buttonRestart.setForeground(Color.WHITE);
 
         String[] items = {"Easy (8x8)", "Medium (9x9)", "Hard (10x10)"};

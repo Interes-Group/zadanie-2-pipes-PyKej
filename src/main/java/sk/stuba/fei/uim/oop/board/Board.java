@@ -129,58 +129,51 @@ public class Board extends JPanel {
 //            Tile currPipe = route.get(i);
             neighbours.clear();
             checkNeighbourPipe(currPipe);
+        boolean connectedPipe;
 
             for (int j = 0; j< neighbours.size(); j++){
                 Tile currNeighbour = neighbours.get(j);
-
+                connectedPipe = false;
 
 
                 if ((currPipe.isWater()) && !(currNeighbour.isWater())){
-
-
-
 
     //                        current smeruje UP
                     if (    (currPipe.getPosX() > currNeighbour.getPosX()) && (currPipe.getPosY() == currNeighbour.getPosY()) &&
                             (currPipe.getDirection1()==Direction.U || currPipe.getDirection2()==Direction.U) &&
                             (currNeighbour.getDirection1() == Direction.D ||currNeighbour.getDirection2() == Direction.D) ){
-                        System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
-                        currNeighbour.setWater(true);
-                        checkPipes(currNeighbour);
-
+                        connectedPipe = true;
                     }
 
-
-
                     //                        current smeruje DOWN
-                    if (    (currPipe.getPosX() < currNeighbour.getPosX()) && (currPipe.getPosY() == currNeighbour.getPosY()) &&
+                    else if (    (currPipe.getPosX() < currNeighbour.getPosX()) && (currPipe.getPosY() == currNeighbour.getPosY()) &&
                             (currPipe.getDirection1()==Direction.D || currPipe.getDirection2()==Direction.D) &&
                             (currNeighbour.getDirection1() == Direction.U ||currNeighbour.getDirection2() == Direction.U) ){
-                        System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
-                        currNeighbour.setWater(true);
-                        checkPipes(currNeighbour);
-
+                        connectedPipe = true;
                     }
 
 
                     //                        current smeruje LEFT
-                    if (    (currPipe.getPosY() > currNeighbour.getPosY()) && (currPipe.getPosX() == currNeighbour.getPosX()) &&
+                    else if (    (currPipe.getPosY() > currNeighbour.getPosY()) && (currPipe.getPosX() == currNeighbour.getPosX()) &&
                             (currPipe.getDirection1()==Direction.L || currPipe.getDirection2()==Direction.L) &&
                             (currNeighbour.getDirection1() == Direction.R ||currNeighbour.getDirection2() == Direction.R) ){
-                        System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
-                        currNeighbour.setWater(true);
-                        checkPipes(currNeighbour);
-
+                        connectedPipe = true;
                     }
 
 
                     //                        current smeruje RIGHT
-                    if (    (currPipe.getPosY() < currNeighbour.getPosY()) && (currPipe.getPosX() == currNeighbour.getPosX()) &&
+                    else if (    (currPipe.getPosY() < currNeighbour.getPosY()) && (currPipe.getPosX() == currNeighbour.getPosX()) &&
                             (currPipe.getDirection1()==Direction.R || currPipe.getDirection2()==Direction.R) &&
                             (currNeighbour.getDirection1() == Direction.L ||currNeighbour.getDirection2() == Direction.L) ){
+                        connectedPipe = true;
+                    }
+
+
+                    if (connectedPipe == true){
                         System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
                         currNeighbour.setWater(true);
                         checkPipes(currNeighbour);
+                        break;
 
                     }
 
@@ -199,7 +192,7 @@ public class Board extends JPanel {
 
 
     public void setWater(){
-        for (int i = 1; i<route.size()-1; i++){
+        for (int i = 1; i<route.size(); i++){
             route.get(i).setWater(false);
         }
     }

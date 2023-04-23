@@ -127,6 +127,7 @@ public class GameLogic extends UniversalAdapter {
             System.out.println("Nict!!!!!!!!!!");
             this.currentBoard.setWater();
             this.currentBoard.checkPipes(this.currentBoard.getStart());
+            this.mainGame.repaint();
         }
 
         else if ("comboBox".equals(actionCommand)) {
