@@ -7,35 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Tile extends JPanel {
-
-    @Setter @Getter
-    private Pipe pipe;
-
-    @Setter @Getter
-    private Direction direction1;
-    @Setter @Getter
-    private Direction direction2;
-
-    private int pipeWidth;
-    private int pipeHeight;
-    private int connectorWidth;
-    private int connectorHeight;
-
-    @Getter @Setter
-    private boolean visited;
-
-    @Getter @Setter
-    private boolean water;
-
-    @Getter
-    private int posX;
-    @Getter
-    private int posY;
-    private int middlePosition;
-
-    @Setter
-    private boolean highlight;
-
     public static final int BACKGROUND_TILE = 0xF2AE4E;
     public static final int START_BACKGROUND = 0x3EBFA1;
     public static final int END_BACKGROUND = 0x8CC600;
@@ -43,6 +14,32 @@ public class Tile extends JPanel {
     public static final int CONNECTOR_PIPE = 0xBF220B;
     public static final int WATER_MIDDLE_PIPE = 0x4674B3;
     public static final int WATER_CONNECTOR_PIPE = 0x6280FC;
+    @Getter
+    private final int posX;
+    @Getter
+    private final int posY;
+    @Setter
+    @Getter
+    private Pipe pipe;
+    @Setter
+    @Getter
+    private Direction direction1;
+    @Setter
+    @Getter
+    private Direction direction2;
+    private int pipeWidth;
+    private int pipeHeight;
+    private int connectorWidth;
+    private int connectorHeight;
+    @Getter
+    @Setter
+    private boolean visited;
+    @Getter
+    @Setter
+    private boolean water;
+    private int middlePosition;
+    @Setter
+    private boolean highlight;
 
     public Tile(int posX, int posY) {
         this.direction1 = Direction.NONE;
@@ -60,19 +57,17 @@ public class Tile extends JPanel {
         int pipeMiddle;
         int pipeConnector;
 
-        if (isWater()){
+        if (isWater()) {
             pipeMiddle = WATER_MIDDLE_PIPE;
             pipeConnector = WATER_CONNECTOR_PIPE;
-        }
-        else {
+        } else {
             pipeMiddle = MIDDLE_PIPE;
             pipeConnector = CONNECTOR_PIPE;
         }
 
-        if (pipe == Pipe.START){
+        if (pipe == Pipe.START) {
             this.setBackground(new Color(START_BACKGROUND));
-        }
-        else if (pipe == Pipe.END){
+        } else if (pipe == Pipe.END) {
             this.setBackground(new Color(END_BACKGROUND));
         }
 
@@ -81,30 +76,29 @@ public class Tile extends JPanel {
             ((Graphics2D) g).setStroke(new BasicStroke(3));
             g.drawRect(0, 0, this.getWidth(), this.getHeight());
             this.highlight = false;
-        }
-        else {
+        } else {
             g.setColor(Color.BLACK);
             ((Graphics2D) g).setStroke(new BasicStroke(3));
             g.drawRect(0, 0, this.getWidth(), this.getHeight());
         }
 
-            this.pipeWidth = (int) (this.getWidth() * 0.25);
-            this.pipeHeight = (int) ((this.getWidth() * 0.5)+ pipeWidth *0.5);
-            this.connectorWidth = (int) (this.getWidth() * 0.35);
-            this.connectorHeight = (int) (this.getHeight() * 0.08);
-            this.middlePosition =(int) ((this.getWidth() * 0.5)-(this.getWidth() * 0.25)*0.5);
+        this.pipeWidth = (int) (this.getWidth() * 0.25);
+        this.pipeHeight = (int) ((this.getWidth() * 0.5) + pipeWidth * 0.5);
+        this.connectorWidth = (int) (this.getWidth() * 0.35);
+        this.connectorHeight = (int) (this.getHeight() * 0.08);
+        this.middlePosition = (int) ((this.getWidth() * 0.5) - (this.getWidth() * 0.25) * 0.5);
 
-        if(direction1 == Direction.L || direction2 == Direction.L){
+        if (direction1 == Direction.L || direction2 == Direction.L) {
             g.setColor(new Color(pipeMiddle));
             g.fillRect(0, middlePosition((int) (this.getHeight() * 0.25)),
-                    pipeHeight,  pipeWidth );
+                    pipeHeight, pipeWidth);
 
             g.setColor(new Color(pipeConnector));
             g.fillRect(0, middlePosition(connectorWidth),
                     connectorHeight, connectorWidth);
         }
 
-        if(direction1 == Direction.U || direction2 == Direction.U){
+        if (direction1 == Direction.U || direction2 == Direction.U) {
             g.setColor(new Color(pipeMiddle));
             g.fillRect(middlePosition((int) (this.getWidth() * 0.25)), 0,
                     pipeWidth, pipeHeight);
@@ -114,54 +108,51 @@ public class Tile extends JPanel {
                     connectorWidth, connectorHeight);
         }
 
-        if(direction1 == Direction.R || direction2 == Direction.R){
+        if (direction1 == Direction.R || direction2 == Direction.R) {
             g.setColor(new Color(pipeMiddle));
-            g.fillRect((this.getWidth()-pipeHeight), middlePosition((int) (this.getHeight() * 0.25)),
-                    pipeHeight,  pipeWidth );
+            g.fillRect((this.getWidth() - pipeHeight), middlePosition((int) (this.getHeight() * 0.25)),
+                    pipeHeight, pipeWidth);
 
             g.setColor(new Color(pipeConnector));
-            g.fillRect((this.getWidth()-connectorHeight), middlePosition(connectorWidth),
+            g.fillRect((this.getWidth() - connectorHeight), middlePosition(connectorWidth),
                     connectorHeight, connectorWidth);
         }
 
-        if(direction1 == Direction.D || direction2 == Direction.D){
+        if (direction1 == Direction.D || direction2 == Direction.D) {
             g.setColor(new Color(pipeMiddle));
             g.fillRect(middlePosition((int) (this.getWidth() * 0.25)), middlePosition(pipeWidth),
                     pipeWidth, pipeHeight);
 
             g.setColor(new Color(pipeConnector));
-            g.fillRect(middlePosition(connectorWidth), (this.getHeight()-connectorHeight),
+            g.fillRect(middlePosition(connectorWidth), (this.getHeight() - connectorHeight),
                     connectorWidth, connectorHeight);
         }
     }
 
-    private int middlePosition(int width){
-        int middle = (int) ((this.getWidth() * 0.5)- width *0.5);
-        return middle;
+    private int middlePosition(int width) {
+        return (int) ((this.getWidth() * 0.5) - width * 0.5);
     }
 
-    public void rotate(){
+    public void rotate() {
         Direction[] directions = Direction.values();
 
-        int dir1Index = 1+ direction1.ordinal();
-        int dir2Index = 1+ direction2.ordinal();
+        int dir1Index = 1 + direction1.ordinal();
+        int dir2Index = 1 + direction2.ordinal();
 
-        if (dir1Index >= directions.length-1){
-            dir1Index =0;
+        if (dir1Index >= directions.length - 1) {
+            dir1Index = 0;
         }
-        if (dir2Index >= directions.length-1){
-            dir2Index =0;
+        if (dir2Index >= directions.length - 1) {
+            dir2Index = 0;
         }
 
         direction1 = directions[dir1Index];
         direction2 = directions[dir2Index];
-        if (pipe == Pipe.END){
+        if (pipe == Pipe.END) {
             direction2 = Direction.NONE;
-        }
-        else if (pipe == Pipe.START) {
+        } else if (pipe == Pipe.START) {
             direction1 = Direction.NONE;
-        }
-        else if (pipe == Pipe.NONE) {
+        } else if (pipe == Pipe.NONE) {
             direction1 = Direction.NONE;
             direction2 = Direction.NONE;
         }

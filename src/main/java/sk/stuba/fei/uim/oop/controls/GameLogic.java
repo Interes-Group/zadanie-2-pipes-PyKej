@@ -1,23 +1,18 @@
 package sk.stuba.fei.uim.oop.controls;
 
 import lombok.Getter;
-import lombok.Setter;
 import sk.stuba.fei.uim.oop.board.Board;
 import sk.stuba.fei.uim.oop.board.tile.Tile;
-
-import java.awt.event.KeyEvent;
-import java.util.Random;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 public class GameLogic extends UniversalAdapter {
     public static final int INITIAL_BOARD_SIZE = 8;
-    private JFrame mainGame;
-
+    private final JFrame mainGame;
     @Getter
     private Board currentBoard;
     @Getter
@@ -28,23 +23,14 @@ public class GameLogic extends UniversalAdapter {
     private int currentBoardSize;
     @Getter
     private int currentLevel;
-
-
-
-
-    private HashMap<String, Integer> optionValues;
+    private final HashMap<String, Integer> optionValues;
 
     public GameLogic(JFrame mainGame) {
-
-
-
         this.mainGame = mainGame;
         this.currentBoardSize = INITIAL_BOARD_SIZE;
         this.label = new JLabel();
         this.boardSizeLabel = new JLabel();
-
         currentLevel = 1;
-
         optionValues = new HashMap<>();
         optionValues.put("Easy (8x8)", 8);
         optionValues.put("Medium (9x9)", 9);
@@ -52,31 +38,20 @@ public class GameLogic extends UniversalAdapter {
 
         updateLevelLabel();
         updateBoardSizeLabel();
-
         initializeNewBoard(currentBoardSize);
 
-
-        //todo tuna daj iné komponenty
         this.label = new JLabel();
         this.boardSizeLabel = new JLabel();
         this.updateLevelLabel();
         this.updateBoardSizeLabel();
-
-
-
-
-
     }
 
     private void initializeNewBoard(int dimension) {
         this.currentBoard = new Board(dimension);
-
-        // todo mouse motion listenery neviem čo je zle
         this.currentBoard.addMouseMotionListener(this);
         this.currentBoard.addMouseListener(this);
 
     }
-
 
     private void updateLevelLabel() {
         this.label.setText("Current level is: " + currentLevel);
@@ -90,7 +65,6 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.repaint();
     }
 
-
     private void gameRestart() {
         this.mainGame.remove(this.currentBoard);
         this.initializeNewBoard(this.currentBoardSize);
@@ -98,14 +72,12 @@ public class GameLogic extends UniversalAdapter {
         this.updateLevelLabel();
     }
 
-
     private void check() {
-
         this.currentBoard.setWater();
         this.currentBoard.getStart().setWater(true);
         this.currentBoard.checkPipes(this.currentBoard.getStart());
 
-        if (this.currentBoard.getFinish().isWater()){
+        if (this.currentBoard.getFinish().isWater()) {
             currentLevel++;
             this.gameRestart();
         }
@@ -116,14 +88,12 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.requestFocus();
     }
 
-
     @Override
     public void mouseMoved(MouseEvent e) {
         Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
         if (!(current instanceof Tile)) {
             return;
-        }
-        else{
+        } else {
             ((Tile) current).setHighlight(true);
         }
         this.currentBoard.repaint();
@@ -141,20 +111,12 @@ public class GameLogic extends UniversalAdapter {
         if ("buttonRestart".equals(actionCommand)) {
             currentLevel = 1;
             this.gameRestart();
-        }
-        else if ("buttonCheck".equals(actionCommand)) {
+        } else if ("buttonCheck".equals(actionCommand)) {
             check();
-        }
-
-        else if ("comboBox".equals(actionCommand)) {
+        } else if ("comboBox".equals(actionCommand)) {
             JComboBox<String> combo = (JComboBox<String>) e.getSource();
             String selectedOption = (String) combo.getSelectedItem();
-            System.out.println(selectedOption);
-
-
             currentBoardSize = optionValues.get(selectedOption);
-
-
             currentLevel = 1;
             this.updateBoardSizeLabel();
             this.gameRestart();
@@ -170,21 +132,14 @@ public class GameLogic extends UniversalAdapter {
         if (!(current instanceof Tile)) {
             return;
         }
-
-        System.out.println("IDE??");
         ((Tile) current).rotate();
-
-        ((Tile) current).getDirection1();
         this.currentBoard.setWater();
-
-        System.out.println("toto som dostal: " +  ((Tile) current).getDirection1());
         this.currentBoard.repaint();
     }
 
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e);
         switch (e.getKeyCode()) {
             case KeyEvent.VK_R:
                 currentLevel = 1;
