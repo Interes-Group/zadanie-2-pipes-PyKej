@@ -141,7 +141,7 @@ public class Board extends JPanel {
 
 
     //                        current smeruje UP
-                    if (    (currPipe.getPosX() > currNeighbour.getPosX()) &&
+                    if (    (currPipe.getPosX() > currNeighbour.getPosX()) && (currPipe.getPosY() == currNeighbour.getPosY()) &&
                             (currPipe.getDirection1()==Direction.U || currPipe.getDirection2()==Direction.U) &&
                             (currNeighbour.getDirection1() == Direction.D ||currNeighbour.getDirection2() == Direction.D) ){
                         System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
@@ -153,7 +153,7 @@ public class Board extends JPanel {
 
 
                     //                        current smeruje DOWN
-                    if (    (currPipe.getPosX() < currNeighbour.getPosX()) &&
+                    if (    (currPipe.getPosX() < currNeighbour.getPosX()) && (currPipe.getPosY() == currNeighbour.getPosY()) &&
                             (currPipe.getDirection1()==Direction.D || currPipe.getDirection2()==Direction.D) &&
                             (currNeighbour.getDirection1() == Direction.U ||currNeighbour.getDirection2() == Direction.U) ){
                         System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
@@ -164,7 +164,7 @@ public class Board extends JPanel {
 
 
                     //                        current smeruje LEFT
-                    if (    (currPipe.getPosY() > currNeighbour.getPosY()) &&
+                    if (    (currPipe.getPosY() > currNeighbour.getPosY()) && (currPipe.getPosX() == currNeighbour.getPosX()) &&
                             (currPipe.getDirection1()==Direction.L || currPipe.getDirection2()==Direction.L) &&
                             (currNeighbour.getDirection1() == Direction.R ||currNeighbour.getDirection2() == Direction.R) ){
                         System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
@@ -175,7 +175,7 @@ public class Board extends JPanel {
 
 
                     //                        current smeruje RIGHT
-                    if (    (currPipe.getPosY() < currNeighbour.getPosY()) &&
+                    if (    (currPipe.getPosY() < currNeighbour.getPosY()) && (currPipe.getPosX() == currNeighbour.getPosX()) &&
                             (currPipe.getDirection1()==Direction.R || currPipe.getDirection2()==Direction.R) &&
                             (currNeighbour.getDirection1() == Direction.L ||currNeighbour.getDirection2() == Direction.L) ){
                         System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
