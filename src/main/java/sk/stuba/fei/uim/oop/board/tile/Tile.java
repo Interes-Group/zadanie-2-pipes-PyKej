@@ -92,16 +92,23 @@ public class Tile extends JPanel {
         }
 
 
-//        if (this.highlight) {
-//            this.setBorder(BorderFactory.createLineBorder(Color.green));
-////            g.setColor(Color.GREEN);
+//        this.setBorder(BorderFactory.createLineBorder(Color.black));
 ////            ((Graphics2D) g).setStroke(new BasicStroke(3));
+//
+//        if (this.highlight) {
+////            this.setBorder(BorderFactory.createLineBorder(Color.green));
+//            g.setColor(Color.GREEN);
+//            ((Graphics2D) g).setStroke(new BasicStroke(3));
+//            g.drawRect(0, 0, this.getWidth(), this.getHeight());
 //            this.highlight = false;
-//        } else {
+//        }
+//        else {
 ////            g.setColor(Color.GRAY);
 //            this.setBorder(BorderFactory.createLineBorder(Color.black));
 ////            ((Graphics2D) g).setStroke(new BasicStroke(3));
+//
 //        }
+
 
 
 
@@ -153,7 +160,7 @@ public class Tile extends JPanel {
                     connectorWidth, connectorHeight);
 
         }
-//        System.out.println("neviem preco"); //todo vymaz
+        System.out.println("neviem preco"); //todo vymaz
 
     }
 

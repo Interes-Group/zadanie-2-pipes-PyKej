@@ -15,7 +15,11 @@ import static sk.stuba.fei.uim.oop.gui.Game.BACKGROUND_COLOUR;
 public class Board extends JPanel {
 
     private final Random rand;
+
+    @Getter
     private Tile[][] tileArray;
+
+    @Getter
     private int dimension;
 
     private ArrayList<Tile> route;
@@ -23,6 +27,8 @@ public class Board extends JPanel {
 
     @Getter
     private Tile start;
+
+    @Getter
     private Tile finish;
 
 
@@ -192,7 +198,7 @@ public class Board extends JPanel {
 
 
     public void setWater(){
-        for (int i = 1; i<route.size(); i++){
+        for (int i = 0; i<route.size(); i++){
             route.get(i).setWater(false);
         }
     }
@@ -287,7 +293,6 @@ public class Board extends JPanel {
         start.setPipe(START);
         start.setDirection1(Direction.NONE);
         start.setDirection2(Direction.R);
-        start.setWater(true);
 
         finish = tileArray[getRand(dimension)][dimension-1];
         finish.setPipe(END);

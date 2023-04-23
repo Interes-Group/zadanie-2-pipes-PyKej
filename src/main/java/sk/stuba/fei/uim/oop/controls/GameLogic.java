@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.board.Board;
 import sk.stuba.fei.uim.oop.board.tile.Tile;
+
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import javax.swing.*;
@@ -97,37 +99,112 @@ public class GameLogic extends UniversalAdapter {
     }
 
 
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
-        if (!(current instanceof Tile)) {
-            return;
-        }
-            ((Tile) current).setHighlight(true);
-//        System.out.println("FUNGUSSSSSS");
-//        ((Tile) current).setHighlight(true);
+    private void check() {
 
-        this.currentBoard.repaint();
+        this.currentBoard.setWater();
+        this.currentBoard.getStart().setWater(true);
+        this.currentBoard.checkPipes(this.currentBoard.getStart());
+
+        if (this.currentBoard.getFinish().isWater()){
+            currentLevel++;
+            this.gameRestart();
+        }
+
+        this.mainGame.revalidate();
+        this.mainGame.repaint();
+        this.mainGame.setFocusable(true);
+        this.mainGame.requestFocus();
+    }
+
+
+//    @Override
+//    public void mouseMoved(MouseEvent e) {
+//        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
+//        if (!(current instanceof Tile)) {
+//            return;
+//        }
+//        else{
+//            ((Tile) current).setHighlight(true);
+//        }
+//
+////        System.out.println("FUNGUSSSSSS");
+////        ((Tile) current).setHighlight(true);
+//
+//        this.currentBoard.repaint();
+//    }
+
+
+    @Override
+    public void mouseEntered(MouseEvent e){
+//        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
+
+
+////        if (!( current instanceof Tile)) {
+////            return;
+////        }
+//
+//        if (!current.getClass().equals(Tile.class)) {
+//            return;
+//
+//        }
+//        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
+
+//        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
+//        if (current instanceof Tile){
+//            ((Tile) current).setHighlight(true);
+//
+////        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.GREEN));
+//            ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
+//        }
+//        else {
+//            return;
+//        }
+//        for (int i = 0; i < this.currentBoard.getDimension(); i++){
+//            for (int j = 0; j < this.currentBoard.getDimension(); j++){
+////                this.currentBoard.getTileArray()[i][j] == current;
+//            }
+//        }
+
+//        if (current == )
+
+
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e){
+//        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
+//
+//
+////        if (!( current instanceof Tile)) {
+////            return;
+////        }
+//
+//        if (!current.getClass().equals(Tile.class)) {
+//            return;
+////            ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+//        }
+//        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
+//        if (!(current instanceof Tile)) {
+//            return;
+//        }
+//
+//        ((Tile) current).setHighlight(false);
+//
+//        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.black, 2));
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        System.out.println("IDE8888??");
         String actionCommand = e.getActionCommand();
         if ("buttonRestart".equals(actionCommand)) {
+            currentLevel = 1;
             this.gameRestart();
-            this.mainGame.revalidate();
-            this.mainGame.repaint();
-            this.mainGame.setFocusable(true);
-            this.mainGame.requestFocus();
         }
         else if ("buttonCheck".equals(actionCommand)) {
-            System.out.println("Nict!!!!!!!!!!");
-            this.currentBoard.setWater();
-            this.currentBoard.checkPipes(this.currentBoard.getStart());
-            this.mainGame.repaint();
+            check();
         }
 
         else if ("comboBox".equals(actionCommand)) {
@@ -138,27 +215,49 @@ public class GameLogic extends UniversalAdapter {
 
             currentBoardSize = optionValues.get(selectedOption);
 
+
+            currentLevel = 1;
             this.updateBoardSizeLabel();
             this.gameRestart();
             this.mainGame.setFocusable(true);
             this.mainGame.requestFocus();
         }
-
-
-
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
+        if (!(current instanceof Tile)) {
+            return;
+        }
+
         System.out.println("IDE??");
         ((Tile) current).rotate();
 
         ((Tile) current).getDirection1();
+        this.currentBoard.setWater();
 
         System.out.println("toto som dostal: " +  ((Tile) current).getDirection1());
         this.currentBoard.repaint();
+    }
+
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e);
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_R:
+                currentLevel = 1;
+                this.gameRestart();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                this.mainGame.dispose();
+                break;
+            case KeyEvent.VK_ENTER:
+                check();
+                break;
+        }
     }
 
 }
