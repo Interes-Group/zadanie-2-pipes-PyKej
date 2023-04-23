@@ -93,21 +93,22 @@ public class Tile extends JPanel {
 
 
 //        this.setBorder(BorderFactory.createLineBorder(Color.black));
-////            ((Graphics2D) g).setStroke(new BasicStroke(3));
-//
-//        if (this.highlight) {
-////            this.setBorder(BorderFactory.createLineBorder(Color.green));
-//            g.setColor(Color.GREEN);
 //            ((Graphics2D) g).setStroke(new BasicStroke(3));
-//            g.drawRect(0, 0, this.getWidth(), this.getHeight());
-//            this.highlight = false;
-//        }
-//        else {
-////            g.setColor(Color.GRAY);
-//            this.setBorder(BorderFactory.createLineBorder(Color.black));
-////            ((Graphics2D) g).setStroke(new BasicStroke(3));
 //
-//        }
+        if (this.highlight) {
+            g.setColor(Color.GREEN);
+            ((Graphics2D) g).setStroke(new BasicStroke(3));
+            g.drawRect(0, 0, this.getWidth(), this.getHeight());
+            this.highlight = false;
+        }
+        else {
+            g.setColor(Color.BLACK);
+            ((Graphics2D) g).setStroke(new BasicStroke(3));
+            g.drawRect(0, 0, this.getWidth(), this.getHeight());
+
+        }
+
+
 
 
 

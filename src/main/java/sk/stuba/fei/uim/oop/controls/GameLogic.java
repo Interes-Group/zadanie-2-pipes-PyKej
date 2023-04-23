@@ -117,84 +117,27 @@ public class GameLogic extends UniversalAdapter {
     }
 
 
-//    @Override
-//    public void mouseMoved(MouseEvent e) {
-//        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
-//        if (!(current instanceof Tile)) {
-//            return;
-//        }
-//        else{
-//            ((Tile) current).setHighlight(true);
-//        }
-//
-////        System.out.println("FUNGUSSSSSS");
-////        ((Tile) current).setHighlight(true);
-//
-//        this.currentBoard.repaint();
-//    }
-
-
     @Override
-    public void mouseEntered(MouseEvent e){
-//        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
+    public void mouseMoved(MouseEvent e) {
+        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
+        if (!(current instanceof Tile)) {
+            return;
+        }
+        else{
+            ((Tile) current).setHighlight(true);
+        }
 
+//        System.out.println("FUNGUSSSSSS");
+//        ((Tile) current).setHighlight(true);
 
-////        if (!( current instanceof Tile)) {
-////            return;
-////        }
-//
-//        if (!current.getClass().equals(Tile.class)) {
-//            return;
-//
-//        }
-//        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
-
-//        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
-//        if (current instanceof Tile){
-//            ((Tile) current).setHighlight(true);
-//
-////        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.GREEN));
-//            ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
-//        }
-//        else {
-//            return;
-//        }
-//        for (int i = 0; i < this.currentBoard.getDimension(); i++){
-//            for (int j = 0; j < this.currentBoard.getDimension(); j++){
-////                this.currentBoard.getTileArray()[i][j] == current;
-//            }
-//        }
-
-//        if (current == )
-
-
-
+        this.currentBoard.repaint();
     }
 
     @Override
-    public void mouseExited(MouseEvent e){
-//        Component current = this.currentBoard.getComponentAt(e.getX(), e.getY());
-//
-//
-////        if (!( current instanceof Tile)) {
-////            return;
-////        }
-//
-//        if (!current.getClass().equals(Tile.class)) {
-//            return;
-////            ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-//        }
-//        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-
-//        if (!(current instanceof Tile)) {
-//            return;
-//        }
-//
-//        ((Tile) current).setHighlight(false);
-//
-//        ((Tile) current).setBorder(BorderFactory.createLineBorder(Color.black, 2));
+    public void mouseExited(MouseEvent e) {
+        super.mouseExited(e);
+        this.currentBoard.repaint();
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
