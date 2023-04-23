@@ -126,10 +126,6 @@ public class GameLogic extends UniversalAdapter {
         else{
             ((Tile) current).setHighlight(true);
         }
-
-//        System.out.println("FUNGUSSSSSS");
-//        ((Tile) current).setHighlight(true);
-
         this.currentBoard.repaint();
     }
 

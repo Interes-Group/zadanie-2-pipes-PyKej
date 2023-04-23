@@ -58,23 +58,10 @@ public class Board extends JPanel {
             }
         }
 
-
         chooseStartFinish();
-
-
         generaterRoute();
-
-
-//        for (int i = 0; i< route.size(); i++){
-//            route.get(i).setPipe(STRAIGHT);
-//            route.get(i).setDirection1(Direction.U);
-//            route.get(i).setDirection2(Direction.D);
-//        }
-
         setTipeOfPipes();
         randomRotate();
-
-
     }
 
 
@@ -82,16 +69,11 @@ public class Board extends JPanel {
 
 
     public void generaterRoute() {
-
         Tile current = start;
-
         start.setVisited(true);
         route.add(start);
 
-
-        System.out.println(finish.getPipe() + " "+ finish.getPosX() + " "+ finish.getPosY());
         while (current.getPipe() != END) {
-
             System.out.println(current.getPipe() + " "+ current.getPosX() + " "+ current.getPosY());
             neighbours.clear();
             checkNeighbours(current);
@@ -112,27 +94,20 @@ public class Board extends JPanel {
                 route.add(next);
                 current = next;
             }
-
         }
-
     }
-
 
     private void randomRotate(){
         for(int i = 0; i<route.size(); i++){
-
             for (int j = 0; j<=getRand(6); j++ ){
                 route.get(i).rotate();
             }
         }
-
         this.repaint();
     }
 
 
     public void checkPipes(Tile currPipe){
-//        for(int i = 0; i<route.size(); i++){
-//            Tile currPipe = route.get(i);
             neighbours.clear();
             checkNeighbourPipe(currPipe);
         boolean connectedPipe;
@@ -144,58 +119,39 @@ public class Board extends JPanel {
 
                 if ((currPipe.isWater()) && !(currNeighbour.isWater())){
 
-    //                        current smeruje UP
                     if (    (currPipe.getPosX() > currNeighbour.getPosX()) && (currPipe.getPosY() == currNeighbour.getPosY()) &&
                             (currPipe.getDirection1()==Direction.U || currPipe.getDirection2()==Direction.U) &&
                             (currNeighbour.getDirection1() == Direction.D ||currNeighbour.getDirection2() == Direction.D) ){
                         connectedPipe = true;
                     }
 
-                    //                        current smeruje DOWN
                     else if (    (currPipe.getPosX() < currNeighbour.getPosX()) && (currPipe.getPosY() == currNeighbour.getPosY()) &&
                             (currPipe.getDirection1()==Direction.D || currPipe.getDirection2()==Direction.D) &&
                             (currNeighbour.getDirection1() == Direction.U ||currNeighbour.getDirection2() == Direction.U) ){
                         connectedPipe = true;
                     }
 
-
-                    //                        current smeruje LEFT
                     else if (    (currPipe.getPosY() > currNeighbour.getPosY()) && (currPipe.getPosX() == currNeighbour.getPosX()) &&
                             (currPipe.getDirection1()==Direction.L || currPipe.getDirection2()==Direction.L) &&
                             (currNeighbour.getDirection1() == Direction.R ||currNeighbour.getDirection2() == Direction.R) ){
                         connectedPipe = true;
                     }
 
-
-                    //                        current smeruje RIGHT
                     else if (    (currPipe.getPosY() < currNeighbour.getPosY()) && (currPipe.getPosX() == currNeighbour.getPosX()) &&
                             (currPipe.getDirection1()==Direction.R || currPipe.getDirection2()==Direction.R) &&
                             (currNeighbour.getDirection1() == Direction.L ||currNeighbour.getDirection2() == Direction.L) ){
                         connectedPipe = true;
                     }
 
-
                     if (connectedPipe == true){
                         System.out.println("Voda " + currNeighbour.getPipe() + " "+ currNeighbour.getPosX() + " "+ currNeighbour.getPosY());
                         currNeighbour.setWater(true);
                         checkPipes(currNeighbour);
                         break;
-
                     }
-
                 }
-
-
-
             }
-
-
-//        }
-
-//        this.repaint();
     }
-
-
 
     public void setWater(){
         for (int i = 0; i<route.size(); i++){
@@ -215,26 +171,21 @@ public class Board extends JPanel {
                 current.setPipe(STRAIGHT_CORNER);
             }
 
-
-            //hore
             if (current.getPosX() >next.getPosX()){
                 current.setDirection2(Direction.U);
                 next.setDirection1(Direction.D);
             }
 
-            //dole
             if (current.getPosX() < next.getPosX()){
                 current.setDirection2(Direction.D);
                 next.setDirection1(Direction.U);
             }
 
-            //v pravo
             if (current.getPosY() >next.getPosY()){
                 current.setDirection2(Direction.L);
                 next.setDirection1(Direction.R);
             }
 
-            //v lavo
             if (current.getPosY() <next.getPosY()){
                 current.setDirection2(Direction.R);
                 next.setDirection1(Direction.L);
@@ -258,7 +209,6 @@ public class Board extends JPanel {
     }
 
     private  void checkNeighbourPipe(Tile currTile){
-        // todo prerob to je to "GRCCCC"
         if (    currTile.getPosY()+1 < dimension &&
                 ((tileArray[currTile.getPosX()][currTile.getPosY()+1].getPipe()==END) ||
                 (tileArray[currTile.getPosX()][currTile.getPosY()+1].getPipe()==STRAIGHT_CORNER))){
@@ -280,8 +230,6 @@ public class Board extends JPanel {
             neighbours.add(tileArray[currTile.getPosX()-1][currTile.getPosY()]);
         }
     }
-
-
 
     private int getRand(int max) {
         int randomNum = rand.nextInt(max);
